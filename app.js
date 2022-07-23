@@ -18,6 +18,7 @@ app.listen(port, () => {
 });
 //Route
 app.get("/", (req, res) => {
-  res.render("restaurantList");
+  const List = resList.results;
+  res.render("restaurantList", { resList: List });
   //res.render("hello");
 });
