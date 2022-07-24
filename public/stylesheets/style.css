@@ -79,6 +79,14 @@ header {
   text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+#404div {
+  display: flex;
+}
+#404img {
+  justify-content: center;
+  align-items: center;
+}
+
 @media screen and (max-width: 992px) {
   .card img {
     height: 115px;

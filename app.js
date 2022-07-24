@@ -18,7 +18,6 @@ app.listen(port, () => {
 });
 //Route
 app.get("/", (req, res) => {
-  console.log(restList);
   res.render("index", { restList });
   //res.render("hello");
 });
@@ -28,4 +27,20 @@ app.get("/restaurants/:id", (req, res) => {
     return itme.id.toString() === restID;
   });
   res.render("show", { selectRest });
+});
+
+app.get("/search", (req, res) => {
+  const keyword = req.query.keyword.toLowerCase();
+  let filterList;
+  filterList = restList.filter((item) => {
+    return (
+      item.category.toLowerCase().includes(keyword) ||
+      item.name.toLowerCase().includes(keyword)
+    );
+  });
+  if (filterList.length === 0) {
+    res.render("notFound", { keyword });
+  } else {
+    res.render("index", { restList: filterList, keyword });
+  }
 });
