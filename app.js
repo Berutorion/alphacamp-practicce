@@ -3,6 +3,17 @@ const app = express();
 const { engine } = require("express-handlebars");
 const restList = require("./restaurant.json").results;
 const port = 3000;
+const mongoose = require("mongoose");
+
+//connect to mongoDB
+mongoose
+  .connect(process.env.MONGODB_URL)
+  .then(() => {
+    console.log("connect to mongodb");
+  })
+  .catch((err) => {
+    console.log("Has sone error", err);
+  });
 
 //set view engine
 app.engine("handlebars", engine());
@@ -16,6 +27,7 @@ app.use(express.static("public"));
 app.listen(port, () => {
   console.log("Server is working");
 });
+
 //Route
 app.get("/", (req, res) => {
   res.render("index", { restList });

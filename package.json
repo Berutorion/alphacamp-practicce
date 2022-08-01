@@ -6,13 +6,16 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "seed": "node ./seeds/restSeeder.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "eagle1630",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
-    "handlebars": "^4.7.7"
+    "handlebars": "^4.7.7",
+    "mongoose": "^6.5.0"
   }
 }
