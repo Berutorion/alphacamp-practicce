@@ -54,7 +54,8 @@ app.get("/restaurants/:id", (req, res) => {
     });
 });
 
-app.get("/search", (req, res) => {
+app.get("/search", async (req, res) => {
+  const restList = await Restaurant.find().lean();
   const keyword = req.query.keyword.toLowerCase();
   let filterList;
   filterList = restList.filter((item) => {
