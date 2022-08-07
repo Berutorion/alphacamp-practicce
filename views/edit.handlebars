@@ -1,0 +1,86 @@
+<h1 class="mb-1 restaurant-show-title">修改餐廳資料</h1>
+<div class="container">
+  <form action="/edit/{{rest._id}}" method="POST">
+    <div class="mb-3">
+      <label for="name" class="form-label">店名</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        value="{{rest.name}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="name_en" class="form-label">英文店名</label>
+      <input
+        type="text"
+        class="form-control"
+        name="name_en"
+        value="{{rest.name_en}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="category" class="form-label">店鋪種類</label>
+      <input
+        type="text"
+        class="form-control"
+        name="category"
+        value="{{rest.category}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="image" class="form-label">店面圖片網址</label>
+      <input
+        type="text"
+        class="form-control"
+        name="image"
+        value="{{rest.image}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="location" class="form-label">店面地址</label>
+      <input
+        type="text"
+        class="form-control"
+        name="location"
+        value="{{rest.location}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">店面電話</label>
+      <input
+        type="phone"
+        class="form-control"
+        name="phone"
+        value="{{rest.phone}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="google_map" class="form-label">googlemap網址</label>
+      <input
+        type="text"
+        class="form-control"
+        name="google_map"
+        value="{{rest.google_map}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="rating" class="form-label">評價</label>
+      <input
+        type="text"
+        class="form-control"
+        name="rating"
+        value="{{rest.rating}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="form-label">介紹</label>
+      <textarea
+        class="form-control"
+        name="description"
+      >{{rest.description}}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
