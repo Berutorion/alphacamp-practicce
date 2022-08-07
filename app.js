@@ -75,15 +75,69 @@ app.get("/create", (req, res) => {
 });
 app.post("/create", (req, res) => {
   console.log("create data");
-  const data = req.body;
-  console.log(data);
+  const {
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+  } = req.body;
+  Restaurant.create({
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+  }).then(() => {
+    console.log("Save success.");
+  });
+
+  res.redirect("/");
 });
 app.get("/edit/:id", async (req, res) => {
   const id = req.params.id;
   const rest = await Restaurant.findById(id).lean();
-  console.log(rest);
   res.render("edit", { rest });
   // res.render("edit",{})
+});
+app.post("/edit/:id", (req, res) => {
+  const id = req.params.id;
+  const {
+    name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    rating,
+    description,
+  } = req.body;
+  Restaurant.updateOne(
+    { _id: id },
+    {
+      name,
+      name_en,
+      category,
+      image,
+      location,
+      phone,
+      google_map,
+      rating,
+      description,
+    }
+  ).then(() => {
+    console.log("update success!");
+  });
+  res.redirect("/");
 });
 app.get("/delete/:id", (req, res) => {
   const id = req.params.id;
