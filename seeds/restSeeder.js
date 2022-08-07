@@ -20,7 +20,7 @@ restList.forEach((element) => {
     phone: element.phone,
     google_map: element.google_map,
     rating: element.rating,
-    despcription: element.despcription,
+    description: element.description,
   }).then(() => {
     console.log("Save success.");
   });

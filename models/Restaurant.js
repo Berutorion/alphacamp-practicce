@@ -19,7 +19,7 @@ const Restaurant = new Schema({
   location: String,
   google_map: String,
   rating: Number,
-  despcription: String,
+  description: String,
 });
 
 module.exports = mongoose.model("Restaurant", Restaurant);
