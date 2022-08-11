@@ -3,7 +3,10 @@ const app = express();
 const { engine } = require("express-handlebars");
 const port = 3000;
 const mongoose = require("mongoose");
-const Restaurant = require("./models/Restaurant");
+const methodOverride = require("method-override");
+const restRoute = require("./routes/index").rest;
+const pageRoute = require("./routes/index").page;
+const apiRoute = require("./routes/index").api;
 require("dotenv").config();
 //connect to mongoDB
 mongoose
@@ -28,129 +31,10 @@ app.use(express.urlencoded({ extended: true }));
 app.listen(port, () => {
   console.log("Server is working");
 });
+//add method-override
+app.use(methodOverride("_method"));
 
 //Route
-app.get("/", (req, res) => {
-  Restaurant.find()
-    .lean()
-    .then((restList) => {
-      res.render("index", { restList });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  //res.render("hello");
-});
-app.get("/restaurants/:id", (req, res) => {
-  const restID = req.params.id;
-  Restaurant.findById(restID)
-    .lean()
-    .then((selectRest) => {
-      res.render("show", { selectRest });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-app.get("/search", async (req, res) => {
-  const restList = await Restaurant.find().lean();
-  const keyword = req.query.keyword.toLowerCase();
-  let filterList;
-  filterList = restList.filter((item) => {
-    return (
-      item.category.toLowerCase().includes(keyword) ||
-      item.name.toLowerCase().includes(keyword)
-    );
-  });
-  if (filterList.length === 0) {
-    res.render("notFound", { keyword });
-  } else {
-    res.render("index", { restList: filterList, keyword });
-  }
-});
-
-app.get("/create", (req, res) => {
-  res.render("create");
-});
-app.post("/create", (req, res) => {
-  console.log("create data");
-  const {
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    rating,
-    description,
-  } = req.body;
-  Restaurant.create({
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    rating,
-    description,
-  }).then(() => {
-    console.log("Save success.");
-  });
-
-  res.redirect("/");
-});
-app.get("/edit/:id", async (req, res) => {
-  const id = req.params.id;
-  const rest = await Restaurant.findById(id).lean();
-  res.render("edit", { rest });
-  // res.render("edit",{})
-});
-app.post("/edit/:id", (req, res) => {
-  const id = req.params.id;
-  const {
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    rating,
-    description,
-  } = req.body;
-  Restaurant.updateOne(
-    { _id: id },
-    {
-      name,
-      name_en,
-      category,
-      image,
-      location,
-      phone,
-      google_map,
-      rating,
-      description,
-    }
-  ).then(() => {
-    console.log("update success!");
-  });
-  res.redirect("/");
-});
-app.get("/delete/:id", (req, res) => {
-  const id = req.params.id;
-  Restaurant.findById({ _id: id }).then((rest) => {
-    rest
-      .remove()
-      .then(() => {
-        console.log("has been remove");
-        res.redirect("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  });
-});
+app.use("/restaurants", restRoute);
+app.use("/page", pageRoute);
+app.use("/api", apiRoute);

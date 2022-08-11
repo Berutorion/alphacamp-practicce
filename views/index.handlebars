@@ -2,7 +2,7 @@
 <div class="container search-bar">
   <div class="search-bar-outer">
     <div class="search-bar-inner">
-      <form action="/search">
+      <form action="/api/search">
         <h4 class="mb-2">尋找餐廳：</h4>
         <div class="input-group">
           <input
@@ -51,20 +51,22 @@
                 </span>
 
               </div>
-              <div class="btn-group btn-group-sm">
-                <a
-                  href="/edit/{{this._id}}"
-                  class="btn btn-primary active"
-                  aria-current="page"
-                >edit</a>
-                <a
-                  href="/restaurants/{{this._id}}"
-                  class="btn btn-primary"
-                >detail</a>
-                <a
-                  href="/delete/{{this._id}}"
-                  class="btn btn-primary"
-                >delete</a>
+              <div class="card-footer d-flex justify-content-end flex-wrap">
+                <a href="/page/{{this._id}}/edit"><button
+                    class="btn btn-primary btn-sm"
+                  >Edit</button></a>
+                <a href="/restaurants/{{this._id}}"><button
+                    class="btn btn-primary btn-sm"
+                  >Details</button></a>
+                <form
+                  action="/restaurants/{{this._id}}?_method=DELETE"
+                  method="POST"
+                >
+                  <button
+                    type="submit"
+                    class="btn btn-danger btn-sm text-white"
+                  >delete</button>
+                </form>
               </div>
             </div>
           </a>
