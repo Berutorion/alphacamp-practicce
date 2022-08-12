@@ -1,15 +1,8 @@
-const mongoose = require("mongoose");
 const restList = require("../restaurant.json").results;
 const Restaurant = require("../models/Restaurant");
-//connet to mongodb
-mongoose
-  .connect(process.env.MONGODB_URL)
-  .then(() => {
-    console.log("connect to mongodb");
-  })
-  .catch((err) => {
-    console.log("Has some error ", err);
-  });
+
+require("../config/mogoose");
+
 restList.forEach((element) => {
   Restaurant.create({
     name: element.name,
