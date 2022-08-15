@@ -30,7 +30,7 @@ git clone https://github.com/Berutorion/alphacamp-practicce.git
 ```
 3.安裝套件
 ```js
-npm i express@4.18.1 express-handlebars@6.0.6
+npm i express@4.18.1 express-handlebars@6.0.6 dotenv@16.0.1 method-override@3.0.0 mongoose @6.5.0
 ```
 4.建立.env檔，設定環境變數
 ```bash
@@ -52,3 +52,6 @@ http://localhost:3000/
  * [express](https://www.npmjs.com/package/express): 4.18.1
  * [express-handlebars](https://www.npmjs.com/package/express-handlebars): 6.0.6  
  * [Node.js](https://nodejs.org/zh-tw/download/) : 16.15.0
+ * dotenv : 16.0.1
+ * method-override : 3.0.0
+ * mongoose : 6.5.0
