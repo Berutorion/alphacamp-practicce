@@ -1,17 +1,44 @@
 <h1 class="mb-1 restaurant-show-title">建立餐廳資料</h1>
 <div class="container">
-  <form action="/restaurants/create" method="POST">
+  <form id="form" class="needs-validation" action="/restaurant" method="POST">
     <div class="mb-3">
       <label for="name" class="form-label">店名</label>
-      <input type="text" class="form-control" id="name" name="name" />
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        minlength="3"
+        required
+      />
     </div>
     <div class="mb-3">
       <label for="name_en" class="form-label">英文店名</label>
-      <input type="text" class="form-control" name="name_en" />
+      <input
+        type="text"
+        class="form-control"
+        name="name_en"
+        minlength="3"
+        required
+      />
     </div>
     <div class="mb-3">
       <label for="category" class="form-label">店鋪種類</label>
-      <input type="text" class="form-control" name="category" />
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        name="category"
+        required
+      >
+        <option selected disabled value="">請選擇</option>
+        <option value="中東料理">中東料理</option>
+        <option value="日本料理">日本料理</option>
+        <option value="義式餐廳">義式餐廳</option>
+        <option value="美式">美式</option>
+        <option value="酒吧">酒吧</option>
+        <option value="咖啡">咖啡</option>
+        <option value="其他">其他</option>
+      </select>
     </div>
     <div class="mb-3">
       <label for="image" class="form-label">店面圖片網址</label>
@@ -19,11 +46,11 @@
     </div>
     <div class="mb-3">
       <label for="location" class="form-label">店面地址</label>
-      <input type="text" class="form-control" name="location" />
+      <input type="text" class="form-control" name="location" required />
     </div>
     <div class="mb-3">
       <label for="phone" class="form-label">店面電話</label>
-      <input type="phone" class="form-control" name="phone" />
+      <input type="phone" class="form-control" name="phone" required />
     </div>
     <div class="mb-3">
       <label for="google_map" class="form-label">googlemap網址</label>
@@ -31,12 +58,25 @@
     </div>
     <div class="mb-3">
       <label for="rating" class="form-label">評價</label>
-      <input type="text" class="form-control" name="rating" />
+      <input
+        type="number"
+        class="form-control"
+        name="rating"
+        min="0"
+        max="5"
+        step="0.1"
+        required
+      />
     </div>
     <div class="mb-3">
       <label for="description" class="form-label">介紹</label>
-      <input type="text" class="form-control" name="description" />
+      <textarea
+        class="form-control"
+        name="description"
+        cols="10"
+        rows="10"
+      ></textarea>
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button id="submit" type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>

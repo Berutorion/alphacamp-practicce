@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const { engine } = require("express-handlebars");
 const port = 3000;
-
 const methodOverride = require("method-override");
 const restRoute = require("./routes/index").rest;
 const pageRoute = require("./routes/index").page;
@@ -30,3 +29,7 @@ app.listen(port, () => {
 app.use("/restaurants", restRoute);
 app.use("/page", pageRoute);
 app.use("/api", apiRoute);
+
+app.get("/", (req, res) => {
+  res.redirect("/restaurants");
+});
