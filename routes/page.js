@@ -8,7 +8,8 @@ router.get("/create", (req, res) => {
 //獲取修改頁面
 router.get("/:id/edit", async (req, res) => {
   const id = req.params.id;
-  const rest = await Restaurant.findById(id).lean();
+  const userId = req.user._id;
+  const rest = await Restaurant.findOne({_id :id ,userId}).lean();
   res.render("edit", { rest });
   // res.render("edit",{})
 });

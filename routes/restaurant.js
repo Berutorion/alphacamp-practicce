@@ -6,7 +6,8 @@ const Restaurant = require("../models/Restaurant");
 // router.use(methodOverride("_method"));
 //獲取全部餐廳資料
 router.get("/", (req, res) => {
-  Restaurant.find()
+  const userId = req.user._id;
+  Restaurant.find({userId})
     .lean()
     .then((restList) => {
       res.render("index", { restList });
@@ -18,7 +19,8 @@ router.get("/", (req, res) => {
 //獲取特定餐廳資料
 router.get("/:id", (req, res) => {
   const restID = req.params.id;
-  Restaurant.findById(restID)
+  const userId = req.user._id;
+  Restaurant.findOne({_id:restID , userId})
     .lean()
     .then((selectRest) => {
       res.render("show", { selectRest });
@@ -31,6 +33,7 @@ router.get("/:id", (req, res) => {
 //新增一筆資料
 router.post("/", (req, res) => {
   console.log("create data");
+  const userId = req.user._id;
   const {
     name,
     name_en,
@@ -52,6 +55,7 @@ router.post("/", (req, res) => {
     google_map,
     rating,
     description,
+    userId
   }).then(() => {
     console.log("Save success.");
   });
@@ -62,6 +66,7 @@ router.post("/", (req, res) => {
 //修改一筆資料
 router.put("/:id", (req, res) => {
   const id = req.params.id;
+  const userId = req.user._id;
   const {
     name,
     name_en,
@@ -74,7 +79,7 @@ router.put("/:id", (req, res) => {
     description,
   } = req.body;
   Restaurant.updateOne(
-    { _id: id },
+    { _id: id ,userId},
     {
       name,
       name_en,
@@ -95,7 +100,8 @@ router.put("/:id", (req, res) => {
 //刪除一筆資料
 router.delete("/:id", (req, res) => {
   const id = req.params.id;
-  Restaurant.findById({ _id: id }).then((rest) => {
+  const userId = req.user._id;
+  Restaurant.findById({ _id: id,userId }).then((rest) => {
     rest
       .remove()
       .then(() => {
