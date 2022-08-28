@@ -3,12 +3,14 @@ const app = express();
 const { engine } = require("express-handlebars");
 const port = 3000;
 const methodOverride = require("method-override");
+const session = require("express-session");
 const restRoute = require("./routes/index").rest;
 const pageRoute = require("./routes/index").page;
 const apiRoute = require("./routes/index").api;
 const userRoute = require("./routes/index").users;
 require("dotenv").config();
 require("./config/mogoose");
+
 
 //set view engine
 app.engine("handlebars", engine());
@@ -21,6 +23,15 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 //add method-override
 app.use(methodOverride("_method"));
+
+//set express-session
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+}))
+//use passport 
+require("./config/passport")(app);
 
 //Listen server
 app.listen(port, () => {

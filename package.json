@@ -12,12 +12,16 @@
   "author": "eagle1630",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "express-handlebars": "^6.0.6",
     "express-session": "^1.17.3",
     "handlebars": "^4.7.7",
     "method-override": "^3.0.0",
-    "mongoose": "^6.5.0"
+    "mongoose": "^6.5.0",
+    "passport": "^0.6.0",
+    "passport-local": "^1.0.0"
   }
 }
