@@ -6,6 +6,7 @@ const methodOverride = require("method-override");
 const restRoute = require("./routes/index").rest;
 const pageRoute = require("./routes/index").page;
 const apiRoute = require("./routes/index").api;
+const userRoute = require("./routes/index").users;
 require("dotenv").config();
 require("./config/mogoose");
 
@@ -29,6 +30,7 @@ app.listen(port, () => {
 app.use("/restaurants", restRoute);
 app.use("/page", pageRoute);
 app.use("/api", apiRoute);
+app.use("/users", userRoute);
 
 app.get("/", (req, res) => {
   res.redirect("/restaurants");
