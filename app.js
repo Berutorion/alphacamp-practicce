@@ -8,6 +8,8 @@ const restRoute = require("./routes/index").rest;
 const pageRoute = require("./routes/index").page;
 const apiRoute = require("./routes/index").api;
 const userRoute = require("./routes/index").users;
+const { authenticate } = require("./middlewares/auth");
+const flash = require("connect-flash");
 require("dotenv").config();
 require("./config/mogoose");
 
@@ -32,15 +34,27 @@ app.use(session({
 }))
 //use passport 
 require("./config/passport")(app);
+//use connect-flash
+app.use(flash());
+
+//set res.locals
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  res.locals.isAuthenticate = req.isAuthenticated();
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.warning_msg = req.flash("warning_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  next();
+})
 
 //Listen server
 app.listen(port, () => {
   console.log("Server is working");
 });
 //Route
-app.use("/restaurants", restRoute);
-app.use("/page", pageRoute);
-app.use("/api", apiRoute);
+app.use("/restaurants",authenticate, restRoute);
+app.use("/page",authenticate, pageRoute);
+app.use("/api",authenticate, apiRoute);
 app.use("/users", userRoute);
 
 app.get("/", (req, res) => {
