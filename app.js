@@ -8,6 +8,7 @@ const restRoute = require("./routes/index").rest;
 const pageRoute = require("./routes/index").page;
 const apiRoute = require("./routes/index").api;
 const userRoute = require("./routes/index").users;
+const authRoute = require("./routes/index").auth;
 const { authenticate } = require("./middlewares/auth");
 const flash = require("connect-flash");
 require("dotenv").config();
@@ -56,6 +57,8 @@ app.use("/restaurants",authenticate, restRoute);
 app.use("/page",authenticate, pageRoute);
 app.use("/api",authenticate, apiRoute);
 app.use("/users", userRoute);
+app.use("/auth", authRoute);
+
 
 app.get("/", (req, res) => {
   res.redirect("/restaurants");
