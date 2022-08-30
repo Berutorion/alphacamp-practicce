@@ -17,6 +17,12 @@
 * 修改route 命名方式 
 * 將route從app.js中分離 
 
+### 2022/08/30
+* 新增本地登入、註冊功能
+* 新增facebook登入功能
+* 內容頁面做登入驗證保護
+* 重新撰寫seeder
+
 ## 專案畫面
 #### 首頁
 ![homepage](https://github.com/Berutorion/alphacamp-practicce/blob/master/image/indexpage.PNG)
@@ -55,3 +61,8 @@ http://localhost:3000/
  * dotenv : 16.0.1
  * method-override : 3.0.0
  * mongoose : 6.5.0
+ * bcryptjs : 2.4.3
+ * connect-flash : 0.1.1
+ * passport : 0.6.0
+ * passport-facebook : 3.0.0
+ * passport-local : 1.0.0
