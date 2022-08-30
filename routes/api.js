@@ -3,7 +3,8 @@ const Restaurant = require("../models/Restaurant");
 
 //搜尋功能
 router.get("/search", async (req, res) => {
-  const restList = await Restaurant.find().lean();
+  const userId = req.user._id
+  const restList = await Restaurant.find({userId}).lean();
   const keyword = req.query.keyword.toLowerCase();
   let filterList;
   filterList = restList.filter((item) => {

@@ -32,8 +32,15 @@
             />
             我的餐廳清單
           </a>
-
-          <a class="btn btn-primary" href="/page/create">Create</a>
+          {{#if isAuthenticate}}
+            <!-- 已登入 -->
+            <div>
+              <a class="btn btn-primary" href="/page/create">Create</a>
+              <a class="btn btn-primary" href="/users/logout">Logout</a>
+            </div>
+          {{else}}
+            <a class="btn btn-primary" href="/users/login">Login</a>
+          {{/if}}
         </div>
       </nav>
 

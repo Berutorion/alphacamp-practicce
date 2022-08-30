@@ -3,11 +3,12 @@ const app = express();
 const { engine } = require("express-handlebars");
 const port = 3000;
 const methodOverride = require("method-override");
-const restRoute = require("./routes/index").rest;
-const pageRoute = require("./routes/index").page;
-const apiRoute = require("./routes/index").api;
+const session = require("express-session");
+const router = require("./routes/router");
+const flash = require("connect-flash");
 require("dotenv").config();
 require("./config/mogoose");
+
 
 //set view engine
 app.engine("handlebars", engine());
@@ -21,14 +22,34 @@ app.use(express.urlencoded({ extended: true }));
 //add method-override
 app.use(methodOverride("_method"));
 
+//set express-session
+app.use(session({
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+}))
+//use passport 
+require("./config/passport")(app);
+//use connect-flash
+app.use(flash());
+
+//set res.locals
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  res.locals.isAuthenticate = req.isAuthenticated();
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.warning_msg = req.flash("warning_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  next();
+})
+
 //Listen server
 app.listen(port, () => {
   console.log("Server is working");
 });
 //Route
-app.use("/restaurants", restRoute);
-app.use("/page", pageRoute);
-app.use("/api", apiRoute);
+app.use(router);
+
 
 app.get("/", (req, res) => {
   res.redirect("/restaurants");
