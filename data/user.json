@@ -1,0 +1,17 @@
+{
+    "users":[
+        {
+            "username":"user1",
+            "email": "user1@example.com",
+            "password": "12345678",
+            "restIndex":[1,2,3]
+        },
+        {
+            "username":"user2",
+            "email": "user2@example.com",
+            "password": "12345678",
+            "restIndex":[4,5,6]
+        }
+
+    ]
+}

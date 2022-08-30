@@ -4,12 +4,7 @@ const { engine } = require("express-handlebars");
 const port = 3000;
 const methodOverride = require("method-override");
 const session = require("express-session");
-const restRoute = require("./routes/index").rest;
-const pageRoute = require("./routes/index").page;
-const apiRoute = require("./routes/index").api;
-const userRoute = require("./routes/index").users;
-const authRoute = require("./routes/index").auth;
-const { authenticate } = require("./middlewares/auth");
+const router = require("./routes/router");
 const flash = require("connect-flash");
 require("dotenv").config();
 require("./config/mogoose");
@@ -53,11 +48,7 @@ app.listen(port, () => {
   console.log("Server is working");
 });
 //Route
-app.use("/restaurants",authenticate, restRoute);
-app.use("/page",authenticate, pageRoute);
-app.use("/api",authenticate, apiRoute);
-app.use("/users", userRoute);
-app.use("/auth", authRoute);
+app.use(router);
 
 
 app.get("/", (req, res) => {
